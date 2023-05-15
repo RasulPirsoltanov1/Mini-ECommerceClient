@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-
+import { ToastrService } from 'ngx-toastr';
+import { CustomToastrService, ToastrMessageType, ToastrOptions, ToastrPosition } from './services/ui/custom-toastr.service';
+declare var $:any
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'E-CommerceClient';
+  constructor() {
+ 
+  }
 }
