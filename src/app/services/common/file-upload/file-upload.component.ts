@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
 import { data, error } from 'jquery';
 import { MatDialog } from '@angular/material/dialog';
+import { FileUploadDialogComponent, FileUploadState } from 'src/app/dialogs/file-upload-dialog/file-upload-dialog.component';
+import { DialogOptions, DialogService } from '../dialog/dialog.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -17,18 +19,24 @@ export class FileUploadComponent {
   constructor(private httpClientService: HttpClientService,
     private alertifyService: AlertifyService,
     private customToastrService: CustomToastrService,
-   private dialog:MatDialog,
-   ) { }
+    private dialog: MatDialog,
+    private dialogService:DialogService,
+  ) { }
   public files: NgxFileDropEntry[];
   @Input() options: Partial<FileUploadOptions>;
 
   public selectedFiles(files: NgxFileDropEntry[]) {
     this.files = files;
+    let formData = new FormData();
     for (let file of files) {
       (file.fileEntry as FileSystemFileEntry).file((_file: File) => {
-        let formData = new FormData();
         formData.append(_file.name, _file, file.relativePath);
-        console.log(formData.getAll.toString())
+      });
+    }
+    this.dialogService.openDialog({
+      componentType:FileUploadDialogComponent,
+      data:UploadState.Yes,
+      afterClosed:() => {
         this.httpClientService.post<any>({
           controller: this.options.controller,
           action: this.options.action,
@@ -66,10 +74,9 @@ export class FileUploadComponent {
             console.log(httpErrorResponse.message)
           }
         );
-      });
-    }
+      }
+    })
   }
-
 }
 
 export class FileUploadOptions {
