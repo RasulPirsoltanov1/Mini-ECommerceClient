@@ -1,10 +1,13 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { data } from 'jquery';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { List_Product } from 'src/app/contracts/list_product';
+import { SelectProductImageComponent, SelectProductImageState } from 'src/app/dialogs/select-product-image/select-product-image.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
+import { DialogService } from 'src/app/services/common/dialog/dialog.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
 @Component({
@@ -13,8 +16,8 @@ import { ProductService } from 'src/app/services/common/models/product.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent extends BaseComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['name', 'price', 'stock', 'createdDate', 'updatedDate', 'edit', 'delete'];
-  constructor(spinner: NgxSpinnerService, public productService: ProductService, private alertify: AlertifyService) {
+  displayedColumns: string[] = ['name', 'price', 'stock', 'createdDate', 'updatedDate','photos', 'edit', 'delete'];
+  constructor(spinner: NgxSpinnerService, public productService: ProductService, private alertify: AlertifyService,public dialogService:DialogService) {
     super(spinner);
   }
   dataSource = new MatTableDataSource<List_Product>();
@@ -39,6 +42,15 @@ export class ListComponent extends BaseComponent implements AfterViewInit, OnIni
   }
   async pageChange() {
     await this.getProducts();
+  }
+  addProductImages(id:string){
+    this.dialogService.openDialog({
+      componentType:SelectProductImageComponent,
+      data:id,
+      options:{
+        width:"85%"
+      }
+    })
   }
   delete(id: string,event:Event) {
     // const img = event.target as HTMLElement;
