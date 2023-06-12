@@ -8,6 +8,7 @@ import { DashboardComponent } from './admin/components/dashboard/dashboard.compo
 import { HomeComponent } from './ui/components/home/home.component';
 import { BasketsModule } from './ui/components/baskets/baskets.module';
 import { ProductsUiModule } from './ui/components/products/products.module';
+import { RegisterModule } from './ui/components/register/register.module';
 
 const routes: Routes = [
   {
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path:"",component:HomeComponent},
   { path:"basket",loadChildren:() => import("./ui/components/baskets/baskets.module").then(module=>BasketsModule)},
   { path:"products",loadChildren:() => import("./ui/components/products/products.module").then(module=>ProductsUiModule)},
+  { path: "register", loadChildren: () => import("./ui/components/register/register.module").then(module => RegisterModule) },
+
   
 ];
 
