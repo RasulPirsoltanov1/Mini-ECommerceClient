@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
+import { Token } from 'src/app/contracts/token/token';
 import { UserService } from 'src/app/services/common/models/user.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginComponent extends BaseComponent {
 
   async login(userNameOrEmail: string, password: string) {
     this.showSpinner(SpinnerType.BallScaleMultiple)
-    await this.userService.login(userNameOrEmail, password,()=>{
+    const token: Token = await this.userService.login(userNameOrEmail, password, () => {
       this.hideSpinner(SpinnerType.BallScaleMultiple);
     });
   }
