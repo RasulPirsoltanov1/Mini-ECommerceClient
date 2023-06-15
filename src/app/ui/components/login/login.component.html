@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+            <div class="mb-3">
+                <label for="userNameOrEmail" class="form-label">UserName or Email</label>
+                <input #txtuserNameOrEmail  type="text" formControlName="userNameOrEmail" class="form-control" id="userNameOrEmail"
+                    aria-describedby="emailHelp">
+                <!-- <small *ngIf="submitted && (component.userNameOrEmail.errors?.required)" style="color: red;">UserName is
+                    required!</small> -->
+                <!-- <small
+                    *ngIf="submitted && (component.userNameOrEmail.errors?.maxlength || component.userNameOrEmail.errors?.minlength)"
+                    style="color: red;">Username between 3-50 characther!</small> -->
+            </div>
+            
+            <div class="mb-3">
+                <label for="password"  class="form-label">Password</label>
+                <input type="password" #txtpassword  formControlName="password" class="form-control" id="password">
+            </div>
+           
+
+            <button type="submit" class="btn btn-primary" (click)="login(txtuserNameOrEmail.value,txtpassword.value)">Register</button>
+    </div>
+    <div class="col-md-4"></div>
+</div>

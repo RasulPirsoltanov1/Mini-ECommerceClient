@@ -4,25 +4,35 @@
         <form [formGroup]="frm" (ngSubmit)="onSubmit(frm.value)">
             <div class="mb-3">
                 <label for="nameSurname" class="form-label">Name Surname</label>
-                <input type="text" formControlName="nameSurname" class="form-control" id="nameSurname" aria-describedby="emailHelp">
+                <input type="text" formControlName="nameSurname" class="form-control" id="nameSurname" aria-describedby="emailHelp" [ngClass]="{'is-invalid':submitted && component.nameSurname.errors
+              }">
+                <small  *ngIf="submitted && (component.nameSurname.errors?.required)" style="color: red;">name and surname is required!</small>
+                <small  *ngIf="submitted && (component.nameSurname.errors?.maxlength || component.nameSurname.errors?.minlength)" style="color: red;">name and surname between 3-50 characther!</small>
               </div>
               <div class="mb-3">
                 <label for="userName" class="form-label">UserName</label>
                 <input type="text" formControlName="userName" class="form-control" id="userName" aria-describedby="emailHelp">
+                <small  *ngIf="submitted && (component.userName.errors?.required)" style="color: red;">UserName is required!</small>
+                <small  *ngIf="submitted && (component.userName.errors?.maxlength || component.userName.errors?.minlength)" style="color: red;">Username between 3-50 characther!</small>
               </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
               <input type="email" formControlName="email" class="form-control" id="email" aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              <small  *ngIf="submitted && (component.email.errors?.required)" style="color: red;">Email required!</small>
+              <small  *ngIf="submitted && (component.email.errors?.email)" style="color: red;">wrong email format!</small>
+                <small  *ngIf="submitted && (component.email.errors?.maxlength || component.email.errors?.minlength)" style="color: red;">Email between 3-50 characther!</small>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
               <input type="password" formControlName="password" class="form-control" id="password">
             </div>
             <div class="mb-3">
-                <label for="passwordRepeat" class="form-label">Password Repeat</label>
-                <input type="password" formControlName="passwordRepeat" class="form-control" id="passwordRepeat">
+                <label for="passwordConfirm" class="form-label">Password Repeat</label>
+                <input type="password" formControlName="passwordConfirm" class="form-control" id="passwordConfirm">
+              <small  *ngIf="submitted && (frm.hasError('passwordNotMatch'))" style="color: red;">password not matched!</small>
+
               </div>
+              
             <button type="submit" class="btn btn-primary">Register</button>
           </form>
     </div>
