@@ -10,6 +10,7 @@ import { BasketsModule } from './ui/components/baskets/baskets.module';
 import { ProductsUiModule } from './ui/components/products/products.module';
 import { RegisterModule } from './ui/components/register/register.module';
 import { LoginModule } from './ui/components/login/login.module';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
       { path: "customers", loadChildren: () => import("./admin/components/customer/customer.module").then(module => CustomerModule) },
       { path: "products", loadChildren: () => import("./admin/components/products/products.module").then(module => ProductsModule) },
       { path: "orders", loadChildren: () => import("./admin/components/order/order.module").then(module => OrderModule) },
-    ]
+    ],
+    canActivate:[AuthGuard]
   },
   { path:"",component:HomeComponent},
   { path:"basket",loadChildren:() => import("./ui/components/baskets/baskets.module").then(module=>BasketsModule)},

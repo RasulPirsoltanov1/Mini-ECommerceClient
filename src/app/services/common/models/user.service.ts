@@ -30,7 +30,7 @@ export class UserService {
       localStorage.setItem("accessToken",token.token.accessToken);
       this.toastrService.success("Successful Login","successfull")
     }
-    return token;
     callBackFunction();
+    return token;
   }
 }
