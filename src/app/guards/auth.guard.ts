@@ -5,19 +5,20 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from '../base/base.component';
-import { _isAuthenticated } from '../services/common/auth.service';
+import { AuthService, _isAuthenticated } from '../services/common/auth.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router:Router,private toastrService:ToastrService,private spinner:NgxSpinnerService){
+  constructor(private router:Router,private toastrService:ToastrService,private spinner:NgxSpinnerService,private authService:AuthService){
 
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     debugger;
+    this.authService.identiytyCheck();
     this.spinner.show(SpinnerType.BallSpinClockwiseFadeRotating);
    let x:Boolean=_isAuthenticated;
-    if(_isAuthenticated){
+    if(!_isAuthenticated){
       this.router.navigate(["login"],{
         queryParams:{
           returnUrl:state.url

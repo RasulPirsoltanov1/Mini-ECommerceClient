@@ -16,10 +16,14 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { FileUploadDialogComponent } from './dialogs/file-upload-dialog/file-upload-dialog.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { LoginComponent } from './ui/components/login/login.component';
+import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { SocialLoginModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +37,8 @@ import { JwtModule } from '@auth0/angular-jwt';
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule,
     JwtModule.forRoot(
       {
         config:{
@@ -43,7 +49,20 @@ import { JwtModule } from '@auth0/angular-jwt';
     )
   ],
   providers: [
-    {provide:"baseUrl", useValue:"https://localhost:7201/api", multi:true}
+    {provide:"baseUrl", useValue:"https://localhost:7201/api", multi:true},
+    {
+      provide: "SocialAuthServiceConfig",
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider("902986185803-4dl068flq4g27bpj299khhlq7es3g988.apps.googleusercontent.com")
+          }
+        ],
+        onError: err => console.log(err)
+      } as SocialAuthServiceConfig
+    }
   ],
   bootstrap: [AppComponent]
 })
