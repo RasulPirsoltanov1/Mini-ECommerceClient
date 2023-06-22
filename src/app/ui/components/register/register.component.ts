@@ -6,6 +6,7 @@ import { BaseComponent } from 'src/app/base/base.component';
 import { Create_User } from 'src/app/contracts/user/create_user';
 import { User } from 'src/app/entities/user';
 import { AlertifyService, MessageType } from 'src/app/services/admin/alertify.service';
+import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 import { UserService } from 'src/app/services/common/models/user.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { UserService } from 'src/app/services/common/models/user.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent extends BaseComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder, private userService: UserService, public toastrService: ToastrService,
+  constructor(private formBuilder: FormBuilder, private userService: UserAuthService, public toastrService: ToastrService,
     spinner: NgxSpinnerService) {
       super(spinner)
   }

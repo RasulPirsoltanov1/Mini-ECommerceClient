@@ -12,25 +12,25 @@ import { TokenResponse } from 'src/app/contracts/token/TokenResponse';
 })
 export class UserService {
 
-  constructor(public httpClientService: HttpClientService, private toastrService: ToastrService) { }
-  async create(user: User): Promise<Create_User> {
-    const result: Observable<Create_User | User> = this.httpClientService.post<Create_User | User>({
-      controller: "Users",
-    }, user)
-    return await firstValueFrom(result) as Create_User;
-  }
-  async login(userNameOrEmail: string, password: string, callBackFunction?: () => void): Promise<TokenResponse | any> {
-    const observable: Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
-      controller: "users", action: "login"
-    }, {
-      userNameOrEmail, password
-    })
-    const token: TokenResponse = await firstValueFrom(observable) as TokenResponse;
-    if (token) {
-      localStorage.setItem("accessToken",token.token.accessToken);
-      this.toastrService.success("Successful Login","successfull")
-    }
-    callBackFunction();
-    return token;
-  }
+  // constructor(public httpClientService: HttpClientService, private toastrService: ToastrService) { }
+  // async create(user: User): Promise<Create_User> {
+  //   const result: Observable<Create_User | User> = this.httpClientService.post<Create_User | User>({
+  //     controller: "Users",
+  //   }, user)
+  //   return await firstValueFrom(result) as Create_User;
+  // }
+  // async login(userNameOrEmail: string, password: string, callBackFunction?: () => void): Promise<TokenResponse | any> {
+  //   const observable: Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
+  //     controller: "auth", action: "login"
+  //   }, {
+  //     userNameOrEmail, password
+  //   })
+  //   const token: TokenResponse = await firstValueFrom(observable) as TokenResponse;
+  //   if (token) {
+  //     localStorage.setItem("accessToken",token.token.accessToken);
+  //     this.toastrService.success("Successful Login","successfull")
+  //   }
+  //   callBackFunction();
+  //   return token;
+  // }
 }
