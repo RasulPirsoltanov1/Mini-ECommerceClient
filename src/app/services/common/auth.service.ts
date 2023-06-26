@@ -8,7 +8,6 @@ export class AuthService {
 
   constructor() { }
   identiytyCheck(){
-    debugger;
     const helper = new JwtHelperService();
     const token: string = localStorage.getItem("accessToken");
     let expired:boolean;

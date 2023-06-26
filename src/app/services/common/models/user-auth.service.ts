@@ -27,10 +27,28 @@ export class UserAuthService {
     })
     const token: TokenResponse = await firstValueFrom(observable) as TokenResponse;
     if (token) {
-      localStorage.setItem("accessToken",token.token.accessToken);
-      this.toastrService.success("Successful Login","successfull")
+      localStorage.setItem("accessToken", token.token.accessToken);
+      localStorage.setItem("refreshToken", token.token.refreshToken);
+      this.toastrService.success("Successful Login", "successfull")
     }
     callBackFunction();
     return token;
+  }
+  async refreshToken(refreshToken: string, callBackFunction?: () => void) {
+    const observable: Observable<any | TokenResponse> = this.httpClientService.post({
+      action: "refreshToken",
+      controller: "auth"
+    }, {
+      refreshToken: refreshToken
+    });
+    const tookenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
+    if (tookenResponse) {
+      localStorage.setItem("accessToken", tookenResponse.token.accessToken);
+      localStorage.setItem("refreshToken", tookenResponse.token.refreshToken);
+      this.toastrService.warning("Ok")
+    }
+    else{
+      callBackFunction();
+    }
   }
 }
