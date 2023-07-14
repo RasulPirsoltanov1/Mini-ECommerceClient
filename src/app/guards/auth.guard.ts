@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate {
 
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    debugger;
     this.authService.identiytyCheck();
     this.spinner.show(SpinnerType.BallSpinClockwiseFadeRotating);
    let x:Boolean=_isAuthenticated;
