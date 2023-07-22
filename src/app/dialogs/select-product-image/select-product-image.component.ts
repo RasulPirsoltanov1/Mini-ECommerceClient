@@ -23,7 +23,7 @@ export class SelectProductImageComponent extends BaseDialog<SelectProductImageCo
     public productService: ProductService,
     private sanitizer: DomSanitizer,
     public spinner: NgxSpinnerService,
-    private dialogService:DialogService
+    private dialogService: DialogService
   ) {
     super(dialogRef)
   }
@@ -39,7 +39,7 @@ export class SelectProductImageComponent extends BaseDialog<SelectProductImageCo
   images: List_Product_Image[];
 
   async ngOnInit() {
-   
+
     this.spinner.show();
     this.images = await this.productService.readImages(this.data as string, () => this.spinner.hide());
   }
@@ -49,15 +49,21 @@ export class SelectProductImageComponent extends BaseDialog<SelectProductImageCo
   }
   async deleteImage(ImageId: string) {
     this.dialogService.openDialog({
-      componentType:DeleteDialogComponent,
-      data:DeleteState.Yes,
-      afterClosed: async ()=>{
+      componentType: DeleteDialogComponent,
+      data: DeleteState.Yes,
+      afterClosed: async () => {
         this.spinner.show(SpinnerType.BallAtom);
-        await this.productService.deleteImage(this.data as string, ImageId,() => this.spinner.hide(SpinnerType.BallAtom));
+        await this.productService.deleteImage(this.data as string, ImageId, () => this.spinner.hide(SpinnerType.BallAtom));
         this.ngOnInit();
       }
     })
 
+  }
+  async showCase(imageId: string) {
+    this.spinner.show(SpinnerType.BallAtom);
+    await this.productService.changeShowcaseImage(imageId, this.data as string, () => {
+      this.spinner.hide(SpinnerType.BallAtom);
+    })
   }
 }
 export enum SelectProductImageState {

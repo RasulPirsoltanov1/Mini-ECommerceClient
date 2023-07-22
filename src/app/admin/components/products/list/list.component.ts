@@ -31,7 +31,7 @@ export class ListComponent extends BaseComponent implements AfterViewInit, OnIni
         messageType: MessageType.Error,
         position: Position.BottomCenter
       })
-    })
+    });
     this.dataSource = new MatTableDataSource<List_Product>(allProductList.products);
     this.paginator.length = allProductList.totalCount;
     console.log(this.paginator.length)

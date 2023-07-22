@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { SelectProductImageComponent } from './select-product-image/select-product-image.component';
 import { FileUploadModule } from '../services/common/file-upload/file-upload.module';
 import {MatCardModule} from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {MatCardModule} from '@angular/material/card';
     MatDialogModule,
     MatButtonModule,
     FileUploadModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule
   ]
 })
 export class DialogModule { }
